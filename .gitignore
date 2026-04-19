@@ -1,0 +1,44 @@
+# Environment & secrets
+.env
+*.env
+
+# Virtual environment
+.inventory_env/
+venv/
+env/
+.venv/
+.test/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build / distribution
+dist/
+build/
+*.egg-info/
+
+# IDE / editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Personal notes
+note.txt
+deployment_explained.txt
+deployment_process.txt
+
+# Docker
+*.log
