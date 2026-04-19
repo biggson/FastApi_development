@@ -2,7 +2,7 @@
 //const API = "http://127.0.0.1:8001";
 
 // Production — Azure Container Apps
-const API = "https://boarder-api.mangomoss-5a94a28b.eastus.azurecontainerapps.io";
+const API = "https://boarder-api.calmgrass-7d4f20d8.eastus.azurecontainerapps.io";
 
 async function apiFetch(path, options = {}) {
   const token = localStorage.getItem("inv_token");

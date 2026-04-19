@@ -11,12 +11,12 @@ function renderLayout(activePage) {
   document.getElementById("navbar-slot").innerHTML = `
     <nav class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
       <div class="flex items-center gap-6">
-        <svg class="w-7 h-7 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-7 h-7 text-gray-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/>
           <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
           <line x1="12" y1="22.08" x2="12" y2="12"/>
         </svg>
-        <span class="font-semibold text-gray-900 text-base">Inventory Manager</span>
+        <span class="font-semibold text-gray-900 text-base">Inventory Management</span>
       </div>
       <div class="flex items-center gap-4">
         <span class="text-sm text-gray-500" id="nav-username"></span>
