@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventory App — Sign In</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-md px-4">
+
+    <!-- Logo / Title -->
+    <div class="text-center mb-8">
+      <h1 class="text-2xl font-semibold text-gray-900">Inventory Manager</h1>
+      <p class="text-sm text-gray-500 mt-1">Stock tracking made simple</p>
+    </div>
+
+    <!-- Card -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+
+      <!-- Tabs -->
+      <div class="flex border-b border-gray-200 mb-6">
+        <button id="tab-login"
+          onclick="showTab('login')"
+          class="tab-btn flex-1 pb-3 text-sm font-medium text-gray-900 border-b-2 border-gray-900">
+          Sign In
+        </button>
+        <button id="tab-register"
+          onclick="showTab('register')"
+          class="tab-btn flex-1 pb-3 text-sm font-medium text-gray-400 border-b-2 border-transparent">
+          Create Account
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Username or Email</label>
+            <input id="login-username" type="text" required placeholder="Enter username or email"
+              class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input id="login-password" type="password" required placeholder="Enter password"
+              class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+          </div>
+
+          <p id="login-error" class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2"></p>
+
+          <button type="submit" id="login-btn"
+            class="w-full bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium py-2 rounded-md transition-colors">
+            Sign In
+          </button>
+        </div>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" class="hidden" onsubmit="handleRegister(event)">
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+              <input id="reg-firstname" type="text" placeholder="First name"
+                class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+              <input id="reg-lastname" type="text" placeholder="Last name"
+                class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Username <span class="text-red-500">*</span></label>
+            <input id="reg-username" type="text" required placeholder="Choose a username"
+              class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
+            <input id="reg-email" type="email" required placeholder="you@example.com"
+              class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Phone <span class="text-gray-400 text-xs">(optional)</span></label>
+            <input id="reg-phone" type="tel" placeholder="+1 555 000 0000"
+              class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Password <span class="text-red-500">*</span></label>
+            <input id="reg-password" type="password" required placeholder="Create a password"
+              class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300" />
+          </div>
+
+          <p id="register-error" class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2"></p>
+
+          <button type="submit" id="register-btn"
+            class="w-full bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium py-2 rounded-md transition-colors">
+            Create Account
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Redirect if already logged in
+    if (localStorage.getItem("inv_token")) {
+      window.location.href = "dashboard.html";
+    }
+
+    function showTab(tab) {
+      const isLogin = tab === "login";
+      document.getElementById("login-form").classList.toggle("hidden", !isLogin);
+      document.getElementById("register-form").classList.toggle("hidden", isLogin);
+
+      document.getElementById("tab-login").className =
+        "tab-btn flex-1 pb-3 text-sm font-medium border-b-2 " +
+        (isLogin ? "text-gray-900 border-gray-900" : "text-gray-400 border-transparent");
+      document.getElementById("tab-register").className =
+        "tab-btn flex-1 pb-3 text-sm font-medium border-b-2 " +
+        (!isLogin ? "text-gray-900 border-gray-900" : "text-gray-400 border-transparent");
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      hideError("login-error");
+      const btn = document.getElementById("login-btn");
+      btn.textContent = "Signing in...";
+      btn.disabled = true;
+
+      const result = await login(
+        document.getElementById("login-username").value.trim(),
+        document.getElementById("login-password").value
+      );
+
+      if (result.ok) {
+        window.location.href = "dashboard.html";
+      } else {
+        showError("login-error", result.error);
+        btn.textContent = "Sign In";
+        btn.disabled = false;
+      }
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      hideError("register-error");
+      const btn = document.getElementById("register-btn");
+      btn.textContent = "Creating account...";
+      btn.disabled = true;
+
+      const data = {
+        username: document.getElementById("reg-username").value.trim(),
+        email: document.getElementById("reg-email").value.trim(),
+        password: document.getElementById("reg-password").value,
+        first_name: document.getElementById("reg-firstname").value.trim() || undefined,
+        last_name: document.getElementById("reg-lastname").value.trim() || undefined,
+        phone_number: document.getElementById("reg-phone").value.trim() || undefined,
+      };
+
+      const result = await register(data);
+
+      if (result.ok) {
+        window.location.href = "dashboard.html";
+      } else {
+        showError("register-error", result.error);
+        btn.textContent = "Create Account";
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
