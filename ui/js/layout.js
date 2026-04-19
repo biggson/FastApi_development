@@ -16,7 +16,7 @@ function renderLayout(activePage) {
           <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
           <line x1="12" y1="22.08" x2="12" y2="12"/>
         </svg>
-        <span class="font-semibold text-gray-900 text-base">Inventory Management</span>
+        <span class="font-semibold text-gray-900 text-base">Inventory Manager</span>
       </div>
       <div class="flex items-center gap-4">
         <span class="text-sm text-gray-500" id="nav-username"></span>
