@@ -15,6 +15,7 @@ function isAdmin() {
   return user && user.role === "admin";
 }
 
+
 function logout() {
   localStorage.removeItem("inv_token");
   localStorage.removeItem("inv_user");
@@ -70,8 +71,16 @@ async function register(data) {
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    return { ok: false, error: body.detail || "Registration failed" };
-  }
+    return {
+      ok: false,
+      error:
+        body.detail ||
+        body.message ||
+        body.error ||
+        JSON.stringify(body) ||
+        "Registration failed. see details"
+    };
+      }
 
   // Auto-login after registration
   return login(data.username, data.password);
