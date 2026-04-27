@@ -30,7 +30,22 @@ DATABASE_URL = URL.create(
     }
 )
 
-engine = create_engine(DATABASE_URL, echo=False)
+
+engine = create_engine(
+    DATABASE_URL,
+    echo=False,
+    pool_pre_ping=True,       # 👈 VERY IMPORTANT (fixes hanging connections)
+    pool_recycle=1800,        # avoids stale Azure connections
+    pool_size=5,
+    max_overflow=10,
+    connect_args={
+        "timeout": 30,
+        "login_timeout": 30
+    }
+)
+
+
+# engine = create_engine(DATABASE_URL, echo=False)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
